@@ -58,5 +58,8 @@ dependencies {
     //picasso
     implementation 'com.squareup.picasso:picasso:2.5.2'
 
+    //cicerone
+    implementation 'com.github.terrakok:cicerone:7.1'
+
     implementation project(path: ':core')
 }

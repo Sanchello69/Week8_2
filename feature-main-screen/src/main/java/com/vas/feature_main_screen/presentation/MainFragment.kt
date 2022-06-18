@@ -13,9 +13,7 @@ import androidx.lifecycle.get
 import com.vas.core.utils.Result
 import com.vas.feature_main_screen.databinding.FragmentMainBinding
 import com.vas.feature_main_screen.di.MainComponentViewModel
-import com.vas.feature_main_screen.navigation.MainNavCommandProvider
-import com.vas.navigation.NavCommand
-import com.vas.navigation.navigate
+import com.vas.feature_main_screen.navigation.MainScreenProvider
 import javax.inject.Inject
 
 class MainFragment : Fragment() {
@@ -24,7 +22,7 @@ class MainFragment : Fragment() {
     lateinit var viewModelFactory: MainViewModelFactory
 
     @Inject
-    lateinit var mainNavCommandProvider: MainNavCommandProvider
+    lateinit var mainScreenProvider: MainScreenProvider
 
     private var binding: FragmentMainBinding? = null
     private var viewModel: MainViewModel? = null
@@ -76,6 +74,7 @@ class MainFragment : Fragment() {
 
     private fun setupUI() {
         initHeroesRecyclerView()
+        initInfoButton()
     }
 
     private fun setupViewModel() {
@@ -91,11 +90,14 @@ class MainFragment : Fragment() {
                 Log.d("click", "$id")
                 val bundle = Bundle()
                 bundle.putString("name", name)
-                navigate(NavCommand(
-                    action = mainNavCommandProvider.toDetails.action,
-                    args = bundle)
-                )
+                viewModel?.navigationToScreen(mainScreenProvider.Details(bundle))
             }
+        }
+    }
+
+    private fun initInfoButton() {
+        binding?.infoImageView?.setOnClickListener {
+            viewModel?.navigationToScreen(mainScreenProvider.AboutApp())
         }
     }
 }

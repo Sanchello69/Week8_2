@@ -45,6 +45,7 @@ class DetailsFragment : Fragment() {
 
         setupViewModel()
         setupObservers()
+        setupClickBack()
     }
 
     override fun onDestroyView() {
@@ -78,6 +79,12 @@ class DetailsFragment : Fragment() {
                 .fit()
                 .placeholder(R.drawable.ic_superhero)
                 .into(characterImageView)
+        }
+    }
+
+    private fun setupClickBack() {
+        binding?.imageViewBack?.setOnClickListener {
+            viewModel?.navigationBack()
         }
     }
 
